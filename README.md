@@ -1,4 +1,4 @@
-# get_facebook_posts_with_links
+# update_spotify_playlist_from_facebook_links
 Playing around with the Facebook API for developers
 
 ## Purpose
