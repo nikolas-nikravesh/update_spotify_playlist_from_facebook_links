@@ -1,0 +1,14 @@
+#!/bin/bash -ex
+
+ACCESS_TOKEN="$1"
+GROUP_ID="$2"
+MESSAGE_LIMIT="$3"
+OUT_FILE="$4"
+
+curl --write-out -i -X GET \
+    "https://graph.facebook.com/v7.0/${GROUP_ID}/feed?fields=attachments%7Bunshimmed_url%7D%2Cmessage&limit=${MESSAGE_LIMIT}&access_token=${ACCESS_TOKEN}" \
+    -o ${OUT_FILE}
+
+# hypothetically, you would keep cURL-ing in a loop until there is no more .paging.next
+# cat ${OUT_FILE} | jq -r '.paging.next'
+
