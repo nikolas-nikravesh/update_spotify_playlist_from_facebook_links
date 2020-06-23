@@ -1,0 +1,7 @@
+#!/bin/bash -ex
+
+PLAYLIST_ID="$1"
+TRACK_ID="$2"
+AUTH_TOKEN="$3"
+
+curl -X "POST" "https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/tracks?uris=spotify%3Atrack%3A${TRACK_ID}" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ${AUTH_TOKEN}"
