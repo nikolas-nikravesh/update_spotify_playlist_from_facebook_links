@@ -1,7 +1,11 @@
 #!/bin/bash -ex
 
-PLAYLIST_ID="$1"
-TRACK_ID="$2"
-AUTH_TOKEN="$3"
+PLAYLIST_ID="0v5wccfxJzI15b05pOatNm"
+AUTH_TOKEN="BQBD7R-p5gd5PzNy978e-V5EPoQlCWdbosfc2sihQY3Kq4M8DIbgB3g1ENcYrApL9ooOXkr7bDsbWX4zE94TqUT3rCKSxNoOpbqWE3amkW7KpQ3ox14YYnTk0df9EdUs9zF9YkgtL1QomnbjaU-ol5xfMmCxbW2r1TKz4YyHm6ZxizRPVRG3ZtJp_yCr5Mz1-BWMp1tO6eXO"
 
-curl -X "POST" "https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/tracks?uris=spotify%3Atrack%3A${TRACK_ID}" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ${AUTH_TOKEN}"
+while IFS= read -r TRACK_ID; do
+    echo "Text read from file: $TRACK_ID"
+    URL="https://api.spotify.com/v1/playlists/${PLAYLIST_ID}/tracks?uris=spotify%3Atrack%3A${TRACK_ID}"
+    curl -X "POST" ${URL} -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ${AUTH_TOKEN}"
+done < track_ids.txt
+

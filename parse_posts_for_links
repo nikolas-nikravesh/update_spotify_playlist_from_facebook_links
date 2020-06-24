@@ -1,6 +1,0 @@
-#!/bin/bash
-
-IN_FILE="$1"
-OUT_FILE="$2"
-
-cat ${IN_FILE} | jq -r '.data[] | select(.attachments != null) | {message: .message, link: .attachments.data[].unshimmed_url}' > $OUT_FILE
