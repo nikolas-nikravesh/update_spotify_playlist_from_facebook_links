@@ -9,7 +9,7 @@ PWD=`pwd`
 TEMP_FILE=${PWD}/tmp.json
 PARSED_FILE="${PWD}/parsed.json"
 LINKS_FILE="${PWD}/links.txt"
-URL= "https://graph.facebook.com/v7.0/${GROUP_ID}/feed?fields=attachments%7Bunshimmed_url%7D%2Cmessage&limit=${MESSAGE_LIMIT}&access_token=${ACCESS_TOKEN}"
+URL="https://graph.facebook.com/v7.0/${GROUP_ID}/feed?fields=attachments%7Bunshimmed_url%7D%2Cmessage&limit=${MESSAGE_LIMIT}&access_token=${ACCESS_TOKEN}"
 
 
 function parse_file_for_links() {
