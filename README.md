@@ -29,7 +29,7 @@ In order for this to work, you need authentication tokens for both the Facebook 
 
 * Ensure you are an Admin of the Facebook page which will be used. (not sure if this is strictly required, but nice to have)
 * Get the Facebook group ID. This can be found in the url in the form `https://www.facebook.com/groups/<group id>`
-* Get the Spotify playlist ID. This can be found by going to your playlist, clicking the (...) object near the title of the playlist, then clicking "Share" --> "Copy Spotify URI". You will only need the string of random characters from this (i.e. "spotify:playlist:<random string of characters>")
+* Get the Spotify playlist ID. This can be found by going to your playlist, clicking the (...) object near the title of the playlist, then clicking "Share" --> "Copy Spotify URI". You will only need the string of random characters from this (i.e. `spotify:playlist:<random string of characters>`)
 
 ### Package dependencies
 For your convenience, a Dockerfile is included in this project. You can run the application in a Docker container built from this Dockerfile if you don't want to worry about installing dependencies or modifying your normal environment. 
