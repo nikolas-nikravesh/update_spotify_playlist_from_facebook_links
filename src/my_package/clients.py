@@ -27,6 +27,8 @@ class FacebookClient:
                 raise Exception("FACEBOOK_ACCESS_TOKEN environment variable not set. Please set it or change your login method")
         else:
             raise Exception("Apparently there exists an unhandled LoginType:", login_type)
+        
+        print("Credentials successfully retrieved")
     
     # Queries the facebook group specified by the group ID and returns all the posts
     # from this page
@@ -51,7 +53,6 @@ class FacebookClient:
         print("All posts retrieved from group.")
         return posts
 
-
 class SpotifyClient:
     def __init__(self):
         print("SpotifyClient initialized")
@@ -75,7 +76,10 @@ class SpotifyClient:
             "Content-Type": "application/json",
             "Accept": "application/json"
         }
-    
+        
+        print("Credentials successfully retrieved")
+
+
     def upload_tracks_to_playlist(self, spotify_playlist_id, tracks):
         if len(tracks) == 0:
             print("Nothing to upload.")
@@ -86,6 +90,7 @@ class SpotifyClient:
             print("Uploading track ID {}".format(track_id))
             url="https://api.spotify.com/v1/playlists/{}/tracks?uris=spotify%3Atrack%3A{}".format(spotify_playlist_id, track_id)
             response = post(url, headers=self.headers)
+        print("Upload complete.")
 
     def get_playlist_tracks(self, spotify_playlist_id):
         print("Getting all tracks from Spotify playlist with ID: ", spotify_playlist_id)

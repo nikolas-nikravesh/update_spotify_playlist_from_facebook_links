@@ -1,6 +1,6 @@
 import re
 
-MATCH_TRACK_REGEX = "(https:\/\/open.spotify.com\/track)\/([a-zA-Z0-9_]*$)"
+MATCH_TRACK_REGEX = "(https:\/\/open.spotify.com\/track)\/([a-zA-Z0-9_]*)(\?*)"
 
 # returns whether the link is a spotify track
 def is_spotify_track(link):
