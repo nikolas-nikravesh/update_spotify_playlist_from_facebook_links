@@ -31,7 +31,7 @@ def _parse_args():
    parser.add_argument('--dry-run', required=False, action='store_true',
       help='Do a dry run (don\'t actually upload the tracks)')
    
-   parser.add_argument('--log-level', required=False, default="INFO",
+   parser.add_argument('--log-level', required=False, default="DEBUG",
       help='Specify the log level for the application log. Valid choices are WARNING, INFO, DEBUG')
 
    args = parser.parse_args()
@@ -66,12 +66,15 @@ def _get_tracks_to_add(args, spotify_client, spotify_track_ids):
    existing_playlist_tracks = spotify_client.get_playlist_tracks(spotify_playlist_id)
  
    tracks_to_add = list(set(spotify_track_ids) - set(existing_playlist_tracks))
-   logging.info("Found {} tracks to add to playlist {}:".format(len(tracks_to_add), spotify_playlist_id))
+   print("Found {} tracks to add to playlist {}:".format(len(tracks_to_add), spotify_playlist_id))
    return tracks_to_add
 
 def _upload_spotify_tracks(args, spotify_client, tracks_to_add):
    logging.info("Uploading tracks to Spotify playlist %s", args.spotify_playlist_id)
    if not args.dry_run:
+      if len(tracks_to_add) <= 0:
+         print("No new tracks to add.")
+         sys.exit(0)
       response = input("WARNING: You are about to add {} tracks to spotify playlist {}. ".format(len(tracks_to_add), args.spotify_playlist_id) + 
          "Are you sure? (y/n)\n--> ")
       if response.lower() != "y":

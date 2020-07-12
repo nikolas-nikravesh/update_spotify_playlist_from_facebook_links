@@ -40,6 +40,12 @@ Otherwise, the dependencies are:
 
 ### Run the program
 
+#### Checkout this package
+
+```
+git clone https://github.com/nikolasn97/update_spotify_playlist_from_facebook_links.git
+```
+
 #### Set authentication tokens as environment variables
 First, set the authentication tokens as environment variables
 ```
