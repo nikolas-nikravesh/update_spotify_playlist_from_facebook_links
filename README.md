@@ -54,8 +54,14 @@ Run the program by executing the following
 ```
 This will take all the posts in the specified Facebook group with links to Spotify songs shared, and put them in the Spotify playlist specified by the playlist ID.
 
+For more information on this application, you can run 
+```
+./bin/run.py --help
+```
+To see a complete list of command line options
 
 ## Further Reading
 
 You can read more about using the Facebook Graph API [here](https://developers.facebook.com/docs/graph-api/)
+
 You can read more about using the Spotify API [here](https://developer.spotify.com/)
