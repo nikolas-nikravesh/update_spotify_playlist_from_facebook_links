@@ -54,7 +54,7 @@ export SPOTIFY_ACCESS_TOKEN=<your spotify authentication token>
 ```
 
 #### Run the program
-Run the program by executing the following
+Run the program by executing the following from the package root
 ```
 ./bin/run.py --facebook-group-id <facebook group id> --spotify-playlist-id <spotify playlist id> 
 ```
