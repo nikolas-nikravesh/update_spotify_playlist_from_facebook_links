@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import logging
+import time
 
 sys.path.append(os.path.join(os.getcwd(), "src"))
 from my_package.clients import FacebookClient, SpotifyClient, LoginType
@@ -25,7 +26,7 @@ def _parse_args():
    parser.add_argument('--spotify-playlist-id', required=True,
       help='The Spotify Playlist ID to add the tracks to')
 
-   parser.add_argument('--no-cache', required=False, action='store_true',
+   parser.add_argument('--no-cache', required=False, action='store_true', default=False,
       help='Do not use cached values when fetching posts from Facebook')
    
    parser.add_argument('--dry-run', required=False, action='store_true',
@@ -37,25 +38,41 @@ def _parse_args():
    args = parser.parse_args()
    return args
 
+def _use_cache(args, cache_file):
+   if (args.no_cache):
+      logging.info("No-cache flag specified")
+      return False
+   
+   if (not os.path.exists(cache_file)):
+      logging.info("Cache file does not exist")
+      return False
+
+   current_time = int(time.time())
+   last_modification = os.path.getmtime(cache_file)
+   hours_since_modification = (current_time - last_modification)/3600
+   logging.info("Hours since last cache file update: %d", hours_since_modification)   
+   return (hours_since_modification <= 24)
+
 def _get_facebook_group_posts(args, facebook_client):
-   logging.info("Pulling Facebook posts from group %s", args.facebook_group_id)
-   # Caching logic
+   logging.info("Retrieving Facebook posts %s", args.facebook_group_id)
+
    cache_dir = os.path.join(os.getcwd(), 'var', 'cache')
    cache_file = os.path.join(cache_dir, "{}.json".format(args.facebook_group_id))
-   if (args.no_cache) or (not os.path.exists(cache_file)): 
+   
+   if _use_cache(args, cache_file): 
+      logging.info("Using posts from cache file: {}".format(cache_file))
+      with open(cache_file, 'r') as cache_fp:
+         group_posts = json.load(cache_fp)
+   else:
+      logging.info("Not using cached values, pulling from Facebook")
       os.makedirs(cache_dir, exist_ok=True)
-      logging.debug("No-cache specified or cache file does not exist, pulling posts from Facebook group {}".format(args.facebook_group_id))
 
       group_posts = facebook_client.query_posts_in_group(args.facebook_group_id)      
-
+      
       with open(cache_file, 'w') as cache_fp:
          cache_fp.write(json.dumps(group_posts))
       logging.debug("cache file created: {}".format(cache_file))
-   else:
-      logging.debug("Using posts from cache file: {}".format(cache_file))
-      with open(cache_file, 'r') as cache_fp:
-         group_posts = json.load(cache_fp)
- 
+   
    return group_posts
 
 
